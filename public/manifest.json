@@ -1,0 +1,19 @@
+{
+  "short_name": "QTZ",
+  "name": "Quartz Extension",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Quartz extension for decentralized micropayments",
+  "icons": {
+    "512": "quartz_logo.png"
+  },
+  "browser_action": {
+    "default_icon": "quartz_logo.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "<all_urls>"
+  ]
+}
