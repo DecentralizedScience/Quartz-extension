@@ -5,7 +5,12 @@ import Paper from '@mui/material/Paper'
 import Container from '@mui/material/Container'
 import {withStyles} from '@mui/styles'
 
-var http = require('http');
+import DisabledScreen from './DisabledScreen.js'
+import EnabledScreen from './EnabledScreen.js'
+import EnabledScreenLogin from './EnabledScreenLogin.js'
+import EnabledScreenPaying from './EnabledScreenPaying.js'
+
+var https = require('https');
 
 
 const styles = {
@@ -54,24 +59,29 @@ class Extension extends Component {
     console.log("sendIlpPayment begins")
 
     const data = JSON.stringify({
-      "receiver": "http://charlie-node:7770/accounts/charlie/spsp",
+      /*"receiver": "http://charlie-node:7770/accounts/charlie/spsp",*/
+      "receiver": "https://51.91.8.116:443/accounts/acc2/spsp",
       "source_amount": 20
     })
 
     const options = {
-      hostname: '192.168.128.4',
-      port: 7770,
-      path: '/accounts/' + 'alice' + '/payments',
+      /*hostname: '192.168.128.4',
+      port: 7770,*/
+      hostname: "51.91.8.116",
+      port: 443,
+      /*path: '/accounts/' + 'alice' + '/payments',*/
+      path: '/accounts/' + 'acc1' + '/payments',
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer alice_password',
+        /*'Authorization': 'Bearer alice_password',*/
+        'Authorization': 'Bearer acc1_password',
         'accept': 'application/json',
         'Content-Type': 'application/json',
         'Content-Length': data.length,
       }
     }
 
-    const req = http.request(options, res2 => {
+    const req = https.request(options, res2 => {
 
       res2.on('data', d => {
         console.log('200',d);
@@ -86,7 +96,8 @@ class Extension extends Component {
     req.write(data)
     req.end()
 
-    var txt = "Amount: " + 20 + ", from: " + "alice" + ", to: " + "http://charlie-node:7770/accounts/charlie/spsp";
+    /*var txt = "Amount: " + 20 + ", from: " + "alice" + ", to: " + "http://charlie-node:7770/accounts/charlie/spsp";*/
+    var txt = "Amount: " + 20 + ", from: " + "acc1" + ", to: " + "https://send.quartz.to/accounts/acc2/spsp"
     console.log(txt);
   }
 
@@ -102,15 +113,24 @@ class Extension extends Component {
       this.setState({flag:1})
     }
 
+    const paymentPointer = this.state.paymentPointer
+
+    let display = <DisabledScreen/>
+
+    if(paymentPointer=="None"){
+      display = <DisabledScreen/>
+    } else {
+      display = <EnabledScreen/>
+    }
+
+
     return(
       <Paper
         className={classes.paper}
         variant="outlined"
         square
       >
-        <div>
-          Here is the payment pointer: {this.state.paymentPointer}
-        </div>
+        {display}
       </Paper>
     )
   }
