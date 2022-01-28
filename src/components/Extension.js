@@ -10,6 +10,7 @@ import EnabledScreen from './EnabledScreen.js'
 import EnabledScreenLogin from './EnabledScreenLogin.js'
 import EnabledScreenPaying from './EnabledScreenPaying.js'
 
+//var https = require('https');
 var https = require('https');
 
 
@@ -60,15 +61,19 @@ class Extension extends Component {
 
     const data = JSON.stringify({
       /*"receiver": "http://charlie-node:7770/accounts/charlie/spsp",*/
-      "receiver": "https://51.91.8.116:443/accounts/acc2/spsp",
+      /*"receiver": "https://51.91.8.116:443/accounts/acc2/spsp",*/
+      "receiver": "http://receive.quartz.to/accounts/acc2/spsp",
       "source_amount": 20
     })
 
     const options = {
       /*hostname: '192.168.128.4',
       port: 7770,*/
-      hostname: "51.91.8.116",
-      port: 443,
+      /*hostname: "51.91.8.116",
+      port: 443,*/
+      hostname: 'receive.quartz.to',
+      /*hostname: "51.91.8.116",
+      port: 7770,*/
       /*path: '/accounts/' + 'alice' + '/payments',*/
       path: '/accounts/' + 'acc1' + '/payments',
       method: 'POST',
@@ -84,7 +89,7 @@ class Extension extends Component {
     const req = https.request(options, res2 => {
 
       res2.on('data', d => {
-        console.log('200',d);
+        console.log('200', d.toString());
       })
     })
 
