@@ -125,7 +125,8 @@ class Extension extends Component {
     if(paymentPointer=="None"){
       display = <DisabledScreen/>
     } else {
-      display = <EnabledScreen/>
+      /*display = <EnabledScreen/>*/
+      display = <EnabledScreenPaying/>
     }
 
 

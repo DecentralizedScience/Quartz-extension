@@ -33,6 +33,14 @@ class EnabledScreen extends Component {
         <Grid item xs={12} align="center">
           <Button
             variant="contained"
+            sx = {{
+              color: "#FFFFFF",
+              fontSize: 22,
+              backgroundColor: "#92699B",
+              '&:hover': {
+                backgroundColor: "#7c5985"
+              }
+            }}
           >
           LOGIN
           </Button>
